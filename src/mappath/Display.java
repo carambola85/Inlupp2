@@ -1,5 +1,7 @@
 package mappath;
 
+import graphs.ListGraph;
+
 import javax.swing.*;
 import javax.swing.filechooser.*;
 import javax.swing.JInternalFrame.*;
@@ -20,6 +22,11 @@ public class Display extends JFrame {
     JFileChooser jfc; 
     BildPanel bild = null;
     mouseListen ml = new mouseListen();
+    ListGraph<Vertex> lg = new ListGraph<Vertex>();
+    
+    VertexHandler v = new VertexHandler(lg);
+    
+    
     
     
     Display(){
@@ -197,11 +204,7 @@ public class Display extends JFrame {
             
             String platsNamn = JOptionPane.showInputDialog(null, "Ange namn på stad");
       
-            VertexImage vImage = new VertexImage(x, y, platsNamn);
-            
-            bild.add(vImage);
-            System.out.println(vImage.getName());
-            
+            v.addVertex(bild, x, y, platsNamn);
             bild.repaint();
            
             bild.removeMouseListener(ml);

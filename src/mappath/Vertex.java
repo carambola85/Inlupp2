@@ -5,9 +5,18 @@
 package mappath;
 
 
-public class Vertex {
+public class Vertex{
     
-    Vertex(){
+    String name;
+    
+    Vertex(String name){
+        
+        this.name = name;
         
     }
+    
+    public String getName(){
+        return name;
+    }
+    
 }

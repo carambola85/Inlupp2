@@ -9,10 +9,11 @@ package graphs;
  * @author
  * jimmyelgeryd
  */
-public class ListGraph {
+public class ListGraph<T> implements Graph {
     
     
-    public void add(){
+    public void add(String s){
+        
         
     }
     
