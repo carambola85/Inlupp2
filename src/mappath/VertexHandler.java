@@ -15,13 +15,7 @@ public class VertexHandler {
         
             
             
-            Vertex v = new Vertex(platsNamn);
-            VertexImage vImage = new VertexImage(x, y, platsNamn, v);
-            bild.add(vImage);
             
-            System.out.println(v.toString());
-            
-            lg.add(v);
             
             
             

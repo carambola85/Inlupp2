@@ -10,6 +10,7 @@ public class VertexCircle extends JComponent{
     Vertex anchor;
     boolean markerad = false;
     public VertexCircle(Vertex v){
+    boolean markerad = false;
         
         this.anchor = v;
         setBounds(0, 0, 30, 30);
@@ -19,22 +20,22 @@ public class VertexCircle extends JComponent{
         
         
         this.setVisible(true);
-        addMouseListener(new circleListen());
+        
         
         
     }
-    
-    class circleListen extends MouseAdapter{
-        @Override
-        public void mouseClicked(MouseEvent mev){
-            markerad = !markerad;
-            System.out.println(anchor.toString());
-            repaint();
-        }
-    }
+   
     
     public Vertex getAnchor(){
         return anchor;
+    }
+    
+    public void toggleMarkerad(){
+        markerad = !markerad;
+    }
+    
+    public boolean getMarkerad(){
+        return markerad;
     }
     
     @Override
@@ -46,6 +47,7 @@ public class VertexCircle extends JComponent{
         }
         else{
             g.setColor(Color.BLUE);
+            System.out.println("tjabba");
             g.fillOval(0,0,30,30);
         }
  

@@ -5,7 +5,7 @@
 package graphs;
 
 import java.util.*;
-
+import mappath.Vertex;
 
 
 public class ListGraph<T> implements Graph<T> {
@@ -22,6 +22,7 @@ public class ListGraph<T> implements Graph<T> {
     
     @Override
     public void connect(T t1, T t2, String s, int weight){
+        System.out.println("Hashmap är " + nodes.size());
         if (!nodes.containsKey(t1) || !nodes.containsKey(t2)){
             throw new NoSuchElementException("Node finns ej vid connect");
         }
@@ -43,6 +44,14 @@ public class ListGraph<T> implements Graph<T> {
                 Edge e2 = new Edge<T>(t1, s, weight);
                 fromList.add(e1);
                 toList.add(e2);
+                if (fromList == toList)
+                    System.out.println("Samma jävla lista");
+                System.out.println("Fromlisten är nu" + fromList.size() + " stor");
+                for (Edge e : fromList){
+                    Vertex v = (Vertex)e.getDest();
+                    System.out.println(v.getName());
+                }
+                
             }
             else{
                 throw new IllegalArgumentException("Finns redan en båge med detta namn");

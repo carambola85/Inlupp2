@@ -26,4 +26,9 @@ public class Vertex{
         
         return "This vertex was created as number " + nr + " and is called " + name + ".";
     }
+    
+    @Override
+    public int hashCode() {
+        return nr;
+}
 }

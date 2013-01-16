@@ -2,6 +2,9 @@ package mappath;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Event;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 
 
 public class VertexImage extends JComponent{
@@ -27,6 +30,9 @@ public class VertexImage extends JComponent{
         
     }
     
+    public void setMouseListener(MouseAdapter m){
+        vCircle.addMouseListener(m);
+    }
     
     
     

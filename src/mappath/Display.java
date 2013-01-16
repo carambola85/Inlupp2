@@ -1,6 +1,7 @@
 package mappath;
 
 import graphs.ListGraph;
+import graphs.Edge;
 
 import javax.swing.*;
 import javax.swing.filechooser.*;
@@ -12,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.io.*;
 import java.util.*;
+import static javax.swing.JOptionPane.*;
 
 
 
@@ -23,9 +25,11 @@ public class Display extends JFrame {
     BildPanel bild = null;
     mouseListen ml = new mouseListen();
     ListGraph<Vertex> lg = new ListGraph<Vertex>();
+    circleListen cl = new circleListen();
+    VertexCircle c1 = null, c2 = null;
     
     VertexHandler v = new VertexHandler(lg);
-    
+    boolean markerad;
     
     
     
@@ -38,6 +42,7 @@ public class Display extends JFrame {
         jfc = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Bilder", "gif", "jpg", "jpeg", "png");
         jfc.addChoosableFileFilter(filter);
+        
         
         
         
@@ -162,15 +167,108 @@ public class Display extends JFrame {
         }
     }
     
-    
+     class circleListen extends MouseAdapter{
+        @Override
+        public void mouseClicked(MouseEvent mev){
+            VertexCircle c = (VertexCircle)mev.getSource();
+            if (c.getMarkerad()){
+                if (c == c1){
+                    c.toggleMarkerad();
+                    c1 = null;
+                    repaint();
+                }
+                else if (c == c2){
+                    c.toggleMarkerad();
+                    c2 = null;
+                    repaint();
+                }
+            }
+            
+            else{
+                if (c1 == null || c2 == null){
+                    if (c1 == null){
+                    	c1 = c;
+                    	c.toggleMarkerad();
+                    	repaint();
+                    }
+                
+                    else if (c2 == null && c1 != c){
+                        c2 = c;
+                        c.toggleMarkerad();
+                        repaint();
+                    }
+                    
+                }
+            
+        }
+    }
+    }
     
     
     class forbListen implements ActionListener{
         
         public void actionPerformed(ActionEvent ave){
-            JOptionPane.showMessageDialog(null, "Förbindelse-knappen");
-            System.out.println(lg.toString());
+            
+            if(c1 == null || c2 == null){
+                JOptionPane.showMessageDialog(null, "Du måste markera två städer först!");
+            }
+            
+            else{
+            newEdgeForm form = new newEdgeForm(c1.getAnchor(), c2.getAnchor());
+            //form.setNodes(c1.anchor, c2.anchor);
+            
+            int svar = JOptionPane.showConfirmDialog(null, form, "Ny förbindelse", JOptionPane.OK_CANCEL_OPTION);
+            if (svar != OK_OPTION){
+                return;
+            }
+            else{ 
+            String name = form.getName();
+            int time = form.getTime();
+            
+            lg.connect(c2.getAnchor(), c2.getAnchor(), name, time);
+            
+            }
+            
+                    
+            }
+            
         }
+    }
+    class newEdgeForm extends JPanel{
+        
+        private JTextField namn, tid;
+        public newEdgeForm(Vertex v1, Vertex v2){
+            setLayout (new BoxLayout(this,BoxLayout.Y_AXIS));
+            JPanel rad0 = new JPanel();
+            JPanel rad1 = new JPanel();
+            JPanel rad2 = new JPanel();
+            
+            JLabel rad3 = new JLabel ("Skapa förbindelse mellan " + v1.getName() + " och " + v2.getName() +".");
+            JLabel rad1text = new JLabel ("Namn:");
+            JLabel rad2text = new JLabel ("Tid i minuter:");
+            namn = new JTextField(15);
+            tid = new JTextField(4);
+            
+            rad0.add(rad3);
+            rad1.add(rad1text);
+            rad1.add(namn);
+            rad2.add(rad2text);
+            rad2.add(tid);
+            
+            add(rad0);
+            add(rad1);
+            add(rad2);
+            
+            
+        }
+        
+        public String getName(){
+            return namn.getText();
+        }
+        public int getTime(){
+            return Integer.parseInt(tid.getText());
+        }
+
     }
     
     class nyPlatsListen implements ActionListener{
@@ -205,7 +303,20 @@ public class Display extends JFrame {
             
             String platsNamn = JOptionPane.showInputDialog(null, "Ange namn på stad");
       
-            v.addVertex(bild, x, y, platsNamn);
+            Vertex v = new Vertex(platsNamn);
+            
+            
+            
+            VertexImage vImage = new VertexImage(x, y, platsNamn, v);
+            vImage.setMouseListener(cl);
+            
+            
+            
+            bild.add(vImage);
+            
+            System.out.println(v.toString());
+            
+            lg.add(v);
             bild.repaint();
            
             bild.removeMouseListener(ml);
