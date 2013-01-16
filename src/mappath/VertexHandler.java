@@ -13,10 +13,15 @@ public class VertexHandler {
     
     public void addVertex(BildPanel bild, int x, int y, String platsNamn ){
         
-            VertexImage vImage = new VertexImage(x, y, platsNamn);
             
+            
+            Vertex v = new Vertex(platsNamn);
+            VertexImage vImage = new VertexImage(x, y, platsNamn, v);
             bild.add(vImage);
-            lg.add(platsNamn);
+            
+            System.out.println(v.toString());
+            
+            lg.add(v);
             
             
             

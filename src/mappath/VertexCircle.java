@@ -7,9 +7,11 @@ import java.awt.event.*;
 
 public class VertexCircle extends JComponent{
     
+    Vertex anchor;
     boolean markerad = false;
-    public VertexCircle(){
+    public VertexCircle(Vertex v){
         
+        this.anchor = v;
         setBounds(0, 0, 30, 30);
         setPreferredSize(new Dimension(30,30));
         setMaximumSize(new Dimension(30,30));
@@ -26,10 +28,14 @@ public class VertexCircle extends JComponent{
         @Override
         public void mouseClicked(MouseEvent mev){
             markerad = !markerad;
+            System.out.println(anchor.toString());
             repaint();
         }
     }
     
+    public Vertex getAnchor(){
+        return anchor;
+    }
     
     @Override
     protected void paintComponent(Graphics g){

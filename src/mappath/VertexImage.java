@@ -6,10 +6,12 @@ import java.awt.*;
 
 public class VertexImage extends JComponent{
     
-    VertexCircle vCircle;
-    VertexText vText;
+    private VertexCircle vCircle;
+    private VertexText vText;
     
-    public VertexImage(int x, int y, String n){
+    
+    public VertexImage(int x, int y, String n, Vertex v){
+        
         
         setBounds(x -25, y -25, 200, 200);
         setPreferredSize(new Dimension(200,200));
@@ -18,12 +20,14 @@ public class VertexImage extends JComponent{
         
         this.setOpaque(true);
         this.setVisible(true);
-        vCircle = new VertexCircle();
+        vCircle = new VertexCircle(v);
         add(vCircle);
         vText = new VertexText(n);
         add(vText);
         
     }
+    
+    
     
     
     
