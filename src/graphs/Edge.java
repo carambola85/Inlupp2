@@ -7,6 +7,9 @@ public class Edge<T> {
     private int weight;
     
     protected Edge(T t, String name, int weight){
+        if (weight < 0)
+            throw new IllegalArgumentException("Negativ vikt för edge ej tillåten");
+        
         this.dest = t;
         this.name = name;
         this.weight = weight;
@@ -22,6 +25,10 @@ public class Edge<T> {
     
     public int getWeight(){
         return weight;
+    }
+    
+    public void setWeight(int w){
+        this.weight = w;
     }
     
     public String toString(){

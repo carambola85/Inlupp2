@@ -169,6 +169,7 @@ public class Display extends JFrame {
         
         public void actionPerformed(ActionEvent ave){
             JOptionPane.showMessageDialog(null, "Förbindelse-knappen");
+            System.out.println(lg.toString());
         }
     }
     
