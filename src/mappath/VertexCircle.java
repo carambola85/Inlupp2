@@ -7,8 +7,9 @@ import java.awt.event.*;
 
 public class VertexCircle extends JComponent{
     
-    Vertex anchor;
-    boolean markerad = false;
+    private Vertex anchor;
+    private  boolean markerad = false;
+    
     public VertexCircle(Vertex v){
     boolean markerad = false;
         
@@ -47,7 +48,6 @@ public class VertexCircle extends JComponent{
         }
         else{
             g.setColor(Color.BLUE);
-            System.out.println("tjabba");
             g.fillOval(0,0,30,30);
         }
  

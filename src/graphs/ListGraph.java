@@ -5,7 +5,6 @@
 package graphs;
 
 import java.util.*;
-import mappath.Vertex;
 
 
 public class ListGraph<T> implements Graph<T> {
@@ -22,9 +21,14 @@ public class ListGraph<T> implements Graph<T> {
     
     @Override
     public void connect(T t1, T t2, String s, int weight){
-        System.out.println("Hashmap är " + nodes.size());
+        
         if (!nodes.containsKey(t1) || !nodes.containsKey(t2)){
             throw new NoSuchElementException("Node finns ej vid connect");
+        }
+        
+        if (nodes.get(t1) == nodes.get(t2)){
+            //this shouldn't happen as you can't select the same circle twice (as it will be deselected on the second click), but just in case
+            throw new IllegalArgumentException("Origin and destination is the same object");
         }
         
             boolean exists = false;
@@ -34,23 +38,17 @@ public class ListGraph<T> implements Graph<T> {
             List<Edge<T>> toList = nodes.get(t2);
             
             for (Edge<T> e : fromList){
-                if(e.getName().equalsIgnoreCase(s)) {
+                if(e.getName().equalsIgnoreCase(s) && e.getDest() == t2) {
                     exists = true;
                 }
             }
             
             if (!exists){
-                Edge e1 = new Edge<T>(t2, s, weight);
-                Edge e2 = new Edge<T>(t1, s, weight);
+                Edge<T> e1 = new Edge<T>(t2, s, weight);
+                Edge<T> e2 = new Edge<T>(t1, s, weight);
                 fromList.add(e1);
                 toList.add(e2);
-                if (fromList == toList)
-                    System.out.println("Samma jävla lista");
-                System.out.println("Fromlisten är nu" + fromList.size() + " stor");
-                for (Edge e : fromList){
-                    Vertex v = (Vertex)e.getDest();
-                    System.out.println(v.getName());
-                }
+                
                 
             }
             else{
@@ -81,9 +79,11 @@ public class ListGraph<T> implements Graph<T> {
         }
     }
     
+   
     @Override
-    public Map<T, List<Edge<T>>> getNodes(){
-        return nodes;
+    public Set<T> getNodes() {
+        return new HashSet<T>(nodes.keySet());
+    
     }
     
     @Override

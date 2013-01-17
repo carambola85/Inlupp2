@@ -24,7 +24,7 @@ public class Vertex{
     @Override
     public String toString(){
         
-        return "This vertex was created as number " + nr + " and is called " + name + ".";
+        return name;
     }
     
     @Override

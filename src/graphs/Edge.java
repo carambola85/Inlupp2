@@ -28,11 +28,12 @@ public class Edge<T> {
     }
     
     public void setWeight(int w){
-        this.weight = w;
+        if(w > 0)
+            this.weight = w;
     }
     
     public String toString(){
-        return "till " + dest + " med " + name + ": " + weight;
+        return "till " + dest + " med " + name + " tar " + weight + " minuter.";
     }
     
 }
