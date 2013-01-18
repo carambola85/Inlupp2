@@ -67,6 +67,7 @@ public class Display extends JFrame {
         nyttItem.addActionListener(new nyListen());
         
         JMenuItem avslutaItem = new JMenuItem("Avsluta");
+        avslutaItem.addActionListener(new quitListen());
         
         JMenuItem hittaItem = new JMenuItem("Hitta väg");
         hittaItem.addActionListener(new hittaListen());
@@ -177,6 +178,13 @@ public class Display extends JFrame {
                 int svar = JOptionPane.showConfirmDialog(null, el, "Kopplingar", JOptionPane.DEFAULT_OPTION);
            }
        }
+    }
+    
+    class quitListen implements ActionListener{
+        
+        public void actionPerformed(ActionEvent ave){
+            System.exit(0);
+        }
     }
     
     
